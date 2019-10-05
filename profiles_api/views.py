@@ -3,7 +3,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from profiles_api import serializers
-
+from .models import UserProfile
+from rest_framework.authentication import TokenAuthentication
+from .permissions import UpdateOwnProfile
 
 class HelloApiView(APIView):
 
@@ -82,3 +84,13 @@ class HelloViewSet(viewsets.ViewSet):
 
     def destroy(self,request,pk=None):
         return Response({'hhtp_method':'DELETE'})
+
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserProfileSerializer
+    queryset = UserProfile.objects.all()
+
+    """adding authentication to only edit own profile"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (UpdateOwnProfile,)
