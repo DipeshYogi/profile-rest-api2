@@ -6,6 +6,8 @@ from profiles_api import serializers
 from .models import UserProfile
 from rest_framework.authentication import TokenAuthentication
 from .permissions import UpdateOwnProfile
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
 
 class HelloApiView(APIView):
 
@@ -98,3 +100,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     """to search profiles by specific name or any other fields. We will use filters module"""
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name','email')
+
+class UserLoginApiView(ObtainAuthToken):
+    """handles creating user authentication tokens"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
