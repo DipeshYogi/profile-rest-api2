@@ -85,7 +85,7 @@ class HelloViewSet(viewsets.ViewSet):
         return Response({'http_method':'PATCH'})
 
     def destroy(self,request,pk=None):
-        return Response({'hhtp_method':'DELETE'})
+        return Response({'http_method':'DELETE'})
 
 
 
